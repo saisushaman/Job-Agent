@@ -1,0 +1,28 @@
+# PostgreSQL + pgvector for Job-Agent.
+# Phase 1 runs on SQLite by default; bring this up when you're ready to switch
+# DATABASE_URL to Postgres (see .env.example). Requires Docker Desktop.
+#
+#   docker compose up -d
+#
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: job_agent_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: job_agent
+      POSTGRES_PASSWORD: job_agent
+      POSTGRES_DB: job_agent
+    ports:
+      - "5432:5432"
+    volumes:
+      - job_agent_pgdata:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U job_agent -d job_agent"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  job_agent_pgdata:
