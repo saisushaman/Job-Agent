@@ -21,6 +21,12 @@ This is an incremental, phase-based build. Follow these rules on **every** task.
   skills, projects, experience, or achievements. Only use facts from the user's profile,
   resume, and imported job text.
 - **Never guarantee a visa outcome.** Sponsorship analysis is evidence-based.
+- **Citizenship-required jobs are off-limits.** If a job requires citizenship (e.g.
+  "must be a U.S. citizen", "US persons only") or a security clearance that implies
+  citizenship, mark it `NOT_ELIGIBLE` and never apply to it. This is enforced in code
+  (deterministic eligibility), not left to the model. Jobs that require existing work
+  authorization the candidate lacks, or explicitly offer no sponsorship, are also
+  `NOT_ELIGIBLE`.
 - **Human-in-the-loop.** No application submitted, email sent, or destructive action
   without explicit user confirmation. `AUTO_SUBMIT=false` by default.
 - **Compliant automation only.** Never bypass CAPTCHA, anti-bot, rate limits, or security

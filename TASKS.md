@@ -30,10 +30,12 @@
 - [x] Management UI, preview, version history, download
 
 ## Phase 4 — Job analysis
-- [ ] USA vs Europe classification
-- [ ] Sponsorship / work-auth analysis (with evidence)
-- [ ] Relocation, English compatibility
-- [ ] Skill / experience / salary extraction
+- [x] USA vs Europe classification
+- [x] Sponsorship / work-auth analysis (with evidence)
+- [x] Relocation, English compatibility
+- [x] Skill / experience / salary extraction
+- [x] Citizenship / security-clearance detection → deterministic NOT_ELIGIBLE (never apply)
+- [x] Job import CRUD + POST /api/jobs/{id}/analyze (local Qwen3, structured output)
 
 ## Phase 5 — Matching engine
 - [ ] Weighted scoring + overall + recommendation

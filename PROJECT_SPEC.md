@@ -19,6 +19,10 @@ Qwen3**. No OpenAI/Anthropic/Gemini or any paid API is used anywhere.
   in the user's profile, resume, and the imported job text.
 - **Never guarantee visa outcomes.** Sponsorship analysis is evidence-based and
   probabilistic; it must never claim approval is guaranteed.
+- **Citizenship-required jobs are excluded.** A job requiring citizenship or a
+  citizenship-gated security clearance is marked `NOT_ELIGIBLE` and never applied to
+  (enforced deterministically). Jobs requiring work authorization the candidate lacks, or
+  offering no sponsorship, are likewise `NOT_ELIGIBLE`.
 - **Human-in-the-loop for anything irreversible.** No application is submitted, no email
   is sent, and no destructive action is taken without explicit user confirmation.
 - **Compliance-first automation.** Browser automation must never bypass CAPTCHAs,

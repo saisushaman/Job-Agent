@@ -7,11 +7,18 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 3 (Resume system) complete.** On top of Phases 1–2, the app
-> now manages resumes: upload PDF/DOCX/TXT into one of five tracks (Master, Software
-> Engineer, AI Engineer, Cloud Engineer, DevOps Engineer), parse and store the text,
-> keep every upload as a version, and preview/download versions from the UI. Scraping,
-> browser automation, email, job analysis, and matching arrive in later phases.
+> **Current status: Phase 4 (Job analysis) complete.** On top of Phases 1–3, the app can
+> import jobs manually and analyze them with local Qwen3: USA-vs-Europe classification,
+> sponsorship / work-authorization categories (with evidence quotes), relocation,
+> English compatibility, skill/experience/salary extraction — and **citizenship or
+> security-clearance detection that deterministically marks a job `NOT_ELIGIBLE`** (never
+> applied to, since the candidate needs sponsorship). Matching, dashboard, tracker,
+> email, and automation arrive in later phases.
+
+Job endpoints: `POST /api/jobs` (import), `GET /api/jobs`, `GET /api/jobs/{id}`,
+`POST /api/jobs/{id}/analyze` (runs Qwen3), `GET /api/jobs/{id}/analysis`. Analysis never
+guarantees a visa and never invents facts; **eligibility is computed in code**, not by the
+model.
 
 Resume endpoints (see http://localhost:8000/docs): `GET /api/resumes`,
 `GET /api/resumes/{id}`, `POST /api/resumes/{id}/versions` (multipart upload),
