@@ -7,9 +7,27 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 1 (Foundation) complete.** Monorepo, FastAPI backend, Next.js
-> frontend, database layer, health check, and a basic dashboard that talks to the backend.
-> Scraping, browser automation, email, and AI analysis arrive in later phases.
+> **Current status: Phase 2 (Local AI layer) complete.** On top of the Phase 1
+> foundation, the app now talks to a local **Ollama + Qwen3** model through an
+> `AIProvider` abstraction, with structured JSON validation + retry, an Ollama health
+> check, and test endpoints. Scraping, browser automation, email, resume tooling, and
+> job analysis arrive in later phases.
+
+## Local AI prerequisite (Phase 2+)
+
+Install [Ollama](https://ollama.com) (auto-starts as a background service on `:11434`)
+and pull the models:
+
+```bash
+ollama pull qwen3:8b          # primary LLM (configurable via OLLAMA_MODEL)
+ollama pull nomic-embed-text  # local embeddings (used from Phase 5)
+```
+
+AI endpoints (see http://localhost:8000/docs):
+
+- `GET  /api/ai/health` — is Ollama reachable and is the model installed?
+- `POST /api/ai/test` — `{"prompt": "..."}` → plain-text reply from Qwen3
+- `POST /api/ai/test-structured` — structured JSON output validated against a schema
 
 ## Repository layout
 

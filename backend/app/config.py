@@ -23,10 +23,16 @@ class Settings(BaseSettings):
     # CORS: comma-separated list of allowed frontend origins.
     backend_cors_origins: str = "http://localhost:3000"
 
-    # Local AI (Phase 2+, unused in Phase 1 but read here so config stays central).
+    # Local AI (Ollama + Qwen3). No paid APIs anywhere.
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "qwen3:8b"
     embedding_model: str = "nomic-embed-text"
+    # Request timeout (seconds) for Ollama calls — local models can be slow to warm up.
+    ollama_timeout: float = 120.0
+    # Extra attempts when the model returns text that isn't valid JSON for the schema.
+    ollama_json_max_retries: int = 2
+    # Disable qwen3's <think> reasoning trace for cleaner, faster structured output.
+    ollama_think: bool = False
 
     # Automation (Phase 11).
     auto_submit: bool = False

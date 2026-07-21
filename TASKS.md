@@ -15,12 +15,12 @@
 - [x] Basic tests (backend pytest, frontend vitest)
 
 ## Phase 2 — Local AI layer
-- [ ] Ollama integration
-- [ ] Qwen3 (`qwen3:8b` default, configurable)
-- [ ] AIProvider abstraction + OllamaProvider
-- [ ] Structured JSON output validation (Pydantic) + retry
-- [ ] Ollama health check
-- [ ] Test prompt endpoint
+- [x] Ollama integration
+- [x] Qwen3 (`qwen3:8b` default, configurable via .env)
+- [x] AIProvider abstraction + OllamaProvider
+- [x] Structured JSON output validation (Pydantic) + retry
+- [x] Ollama health check (`GET /api/ai/health`)
+- [x] Test prompt endpoint (`POST /api/ai/test`, `POST /api/ai/test-structured`)
 
 ## Phase 3 — Resume system
 - [ ] Upload PDF/DOCX/TXT
