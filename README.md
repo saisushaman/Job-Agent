@@ -7,11 +7,16 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 2 (Local AI layer) complete.** On top of the Phase 1
-> foundation, the app now talks to a local **Ollama + Qwen3** model through an
-> `AIProvider` abstraction, with structured JSON validation + retry, an Ollama health
-> check, and test endpoints. Scraping, browser automation, email, resume tooling, and
-> job analysis arrive in later phases.
+> **Current status: Phase 3 (Resume system) complete.** On top of Phases 1–2, the app
+> now manages resumes: upload PDF/DOCX/TXT into one of five tracks (Master, Software
+> Engineer, AI Engineer, Cloud Engineer, DevOps Engineer), parse and store the text,
+> keep every upload as a version, and preview/download versions from the UI. Scraping,
+> browser automation, email, job analysis, and matching arrive in later phases.
+
+Resume endpoints (see http://localhost:8000/docs): `GET /api/resumes`,
+`GET /api/resumes/{id}`, `POST /api/resumes/{id}/versions` (multipart upload),
+`GET /api/resumes/versions/{version_id}` (parsed-text preview),
+`GET /api/resumes/versions/{version_id}/download`. UI at http://localhost:3000/resumes.
 
 ## Local AI prerequisite (Phase 2+)
 

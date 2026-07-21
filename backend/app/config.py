@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     # Automation (Phase 11).
     auto_submit: bool = False
 
+    # Where uploaded resume files are stored (relative to the backend working dir).
+    upload_dir: str = "uploads"
+
     @property
     def cors_origins(self) -> list[str]:
         return [o.strip() for o in self.backend_cors_origins.split(",") if o.strip()]

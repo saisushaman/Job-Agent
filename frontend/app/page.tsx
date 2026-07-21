@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import HealthStatus from "@/components/HealthStatus";
 
 const STATS: { label: string; value: number; accent: string }[] = [
@@ -20,7 +22,15 @@ export default function DashboardPage() {
             Local-first AI job search &amp; application management
           </p>
         </div>
-        <HealthStatus />
+        <div className="flex items-center gap-4">
+          <Link
+            href="/resumes"
+            className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+          >
+            Resumes
+          </Link>
+          <HealthStatus />
+        </div>
       </header>
 
       <section

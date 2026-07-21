@@ -23,11 +23,11 @@
 - [x] Test prompt endpoint (`POST /api/ai/test`, `POST /api/ai/test-structured`)
 
 ## Phase 3 — Resume system
-- [ ] Upload PDF/DOCX/TXT
-- [ ] Parse resume text
-- [ ] Store metadata + parsed text
-- [ ] Resume versions (Master, SWE, AI, Cloud, DevOps)
-- [ ] Management UI, preview, version history
+- [x] Upload PDF/DOCX/TXT
+- [x] Parse resume text (pypdf / python-docx / txt)
+- [x] Store metadata + parsed text (+ original file on disk)
+- [x] Resume versions (Master, SWE, AI, Cloud, DevOps — seeded)
+- [x] Management UI, preview, version history, download
 
 ## Phase 4 — Job analysis
 - [ ] USA vs Europe classification

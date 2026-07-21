@@ -40,4 +40,5 @@ Thumbs.db
 
 # ---- Uploads / generated ----
 uploads/
+test_uploads/
 exports/

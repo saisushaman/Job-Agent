@@ -5,7 +5,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import ai, health
+from app.api.routes import ai, health, resumes
 from app.config import settings
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
@@ -20,6 +20,7 @@ app.add_middleware(
 
 app.include_router(health.router, prefix="/api")
 app.include_router(ai.router, prefix="/api")
+app.include_router(resumes.router, prefix="/api")
 
 
 @app.get("/", tags=["root"])
