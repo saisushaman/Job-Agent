@@ -27,6 +27,8 @@ from app.schemas.matching import (
     MatchWeights,
     Recommendation,
 )
+from app.schemas.dashboard import JobDetail, JobListItem
+from app.services.dashboard import search_jobs
 from app.services.job_analysis import analyze_job
 from app.services.matching import match_job
 from app.services.profile import get_or_create_profile
@@ -50,14 +52,59 @@ def create_job(body: JobCreate, db: Session = Depends(get_db)) -> Job:
     return job
 
 
-@router.get("", response_model=list[JobOut])
-def list_jobs(db: Session = Depends(get_db)) -> list[Job]:
-    return list(db.scalars(select(Job).order_by(Job.id.desc())).all())
+@router.get("", response_model=list[JobListItem])
+def list_jobs(
+    q: str | None = None,
+    region: str | None = None,
+    country: str | None = None,
+    company: str | None = None,
+    eligibility: str | None = None,
+    recommendation: str | None = None,
+    min_score: float | None = None,
+    remote_only: bool = False,
+    db: Session = Depends(get_db),
+) -> list[JobListItem]:
+    return search_jobs(
+        db,
+        q=q,
+        region=region,
+        country=country,
+        company=company,
+        eligibility=eligibility,
+        recommendation=recommendation,
+        min_score=min_score,
+        remote_only=remote_only,
+    )
 
 
 @router.get("/{job_id}", response_model=JobOut)
 def get_job(job_id: int, db: Session = Depends(get_db)) -> Job:
     return _get_job_or_404(db, job_id)
+
+
+@router.get("/{job_id}/detail", response_model=JobDetail)
+def get_job_detail(job_id: int, db: Session = Depends(get_db)) -> JobDetail:
+    job = _get_job_or_404(db, job_id)
+    analysis_out = None
+    if job.analysis is not None:
+        analysis_out = JobAnalysisOut(
+            job_id=job.id,
+            region=Region(job.analysis.region),
+            eligibility=Eligibility(job.analysis.eligibility),
+            citizenship_required=job.analysis.citizenship_required,
+            result=JobAnalysisResult.model_validate(job.analysis.data),
+        )
+    match_out = None
+    if job.match is not None:
+        match_out = MatchOut(
+            job_id=job.id,
+            overall_score=job.match.overall_score,
+            recommendation=Recommendation(job.match.recommendation),
+            result=MatchResult.model_validate(job.match.data),
+        )
+    return JobDetail(
+        job=JobOut.model_validate(job), analysis=analysis_out, match=match_out
+    )
 
 
 def _to_out(analysis: JobAnalysis) -> JobAnalysisOut:

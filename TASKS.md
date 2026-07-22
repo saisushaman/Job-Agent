@@ -46,8 +46,12 @@
 - [x] POST/GET /api/jobs/{id}/match
 
 ## Phase 6 — Dashboard
-- [ ] Stats, USA/Europe, sponsorship, top matches, pipeline
-- [ ] Search & filtering, job detail + analysis
+- [x] Stats (totals, pipeline, USA/Europe, sponsorship, recommendations, eligibility)
+- [x] Top matching jobs (excludes DO_NOT_APPLY)
+- [x] Job search & filtering (q, region, country, company, eligibility, recommendation,
+      min score, remote)
+- [x] Job detail page with analysis + match display
+- [x] Candidate profile editor UI; shared nav across pages
 
 ## Phase 7 — Application tracker
 - [ ] Status lifecycle, records, Kanban + drag/drop, detail, audit

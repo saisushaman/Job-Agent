@@ -7,13 +7,17 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 5 (Matching engine) complete.** On top of Phases 1–4, the app
-> scores each analyzed job against a candidate profile + resume across Technical (35%,
-> local embeddings), Experience (20%), Sponsorship (25%), Location (10%), Language (5%),
-> and Relocation (5%) → an overall score and a recommendation (APPLY / REVIEW /
-> LOW_PRIORITY / DO_NOT_APPLY). Jobs marked `NOT_ELIGIBLE` in Phase 4 (citizenship /
-> no sponsorship) hard-map to **DO_NOT_APPLY**. Dashboard, tracker, email, and automation
-> arrive in later phases.
+> **Current status: Phase 6 (Dashboard) complete.** On top of Phases 1–5, the app has a
+> real UI: a dashboard with pipeline stats, region / eligibility / sponsorship /
+> recommendation breakdowns and top matching jobs; a Jobs page to import jobs and
+> search/filter them (region, eligibility, recommendation, match score, remote) with
+> per-row Analyze/Match actions; a job detail page showing the full analysis + match; and
+> a candidate profile editor. Application tracker, tailoring, email, and automation arrive
+> in later phases.
+
+Dashboard/search endpoints: `GET /api/dashboard/stats`, `GET /api/jobs?...filters`,
+`GET /api/jobs/{id}/detail`. UI pages: `/` (dashboard), `/jobs`, `/jobs/{id}`,
+`/profile`, `/resumes`.
 
 Matching endpoints: `GET/PUT /api/profile` (candidate profile),
 `POST /api/jobs/{id}/match` (uses local Qwen3 + `nomic-embed-text` embeddings),
