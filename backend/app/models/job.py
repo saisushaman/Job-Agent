@@ -17,6 +17,7 @@ from app.models.base import TimestampMixin
 if TYPE_CHECKING:
     from app.models.application import Application
     from app.models.job_analysis import JobAnalysis
+    from app.models.job_match import JobMatch
 
 
 class Job(Base, TimestampMixin):
@@ -34,6 +35,9 @@ class Job(Base, TimestampMixin):
         back_populates="job", cascade="all, delete-orphan"
     )
     analysis: Mapped["JobAnalysis | None"] = relationship(
+        back_populates="job", cascade="all, delete-orphan", uselist=False
+    )
+    match: Mapped["JobMatch | None"] = relationship(
         back_populates="job", cascade="all, delete-orphan", uselist=False
     )
 

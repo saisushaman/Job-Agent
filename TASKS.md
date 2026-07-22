@@ -38,8 +38,12 @@
 - [x] Job import CRUD + POST /api/jobs/{id}/analyze (local Qwen3, structured output)
 
 ## Phase 5 — Matching engine
-- [ ] Weighted scoring + overall + recommendation
-- [ ] Local embeddings semantic similarity
+- [x] Weighted scoring (technical/experience/sponsorship/location/language/relocation)
+- [x] Overall score + recommendation (APPLY/REVIEW/LOW_PRIORITY/DO_NOT_APPLY)
+- [x] NOT_ELIGIBLE (citizenship/no-sponsorship) hard-maps to DO_NOT_APPLY
+- [x] Local embeddings (nomic-embed-text) semantic similarity for technical match
+- [x] Candidate profile GET/PUT; matched/missing skills; Qwen3 reasoning
+- [x] POST/GET /api/jobs/{id}/match
 
 ## Phase 6 — Dashboard
 - [ ] Stats, USA/Europe, sponsorship, top matches, pipeline

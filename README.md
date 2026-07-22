@@ -7,13 +7,17 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 4 (Job analysis) complete.** On top of Phases 1–3, the app can
-> import jobs manually and analyze them with local Qwen3: USA-vs-Europe classification,
-> sponsorship / work-authorization categories (with evidence quotes), relocation,
-> English compatibility, skill/experience/salary extraction — and **citizenship or
-> security-clearance detection that deterministically marks a job `NOT_ELIGIBLE`** (never
-> applied to, since the candidate needs sponsorship). Matching, dashboard, tracker,
-> email, and automation arrive in later phases.
+> **Current status: Phase 5 (Matching engine) complete.** On top of Phases 1–4, the app
+> scores each analyzed job against a candidate profile + resume across Technical (35%,
+> local embeddings), Experience (20%), Sponsorship (25%), Location (10%), Language (5%),
+> and Relocation (5%) → an overall score and a recommendation (APPLY / REVIEW /
+> LOW_PRIORITY / DO_NOT_APPLY). Jobs marked `NOT_ELIGIBLE` in Phase 4 (citizenship /
+> no sponsorship) hard-map to **DO_NOT_APPLY**. Dashboard, tracker, email, and automation
+> arrive in later phases.
+
+Matching endpoints: `GET/PUT /api/profile` (candidate profile),
+`POST /api/jobs/{id}/match` (uses local Qwen3 + `nomic-embed-text` embeddings),
+`GET /api/jobs/{id}/match`. Job analysis (Phase 4): `POST /api/jobs/{id}/analyze`.
 
 Job endpoints: `POST /api/jobs` (import), `GET /api/jobs`, `GET /api/jobs/{id}`,
 `POST /api/jobs/{id}/analyze` (runs Qwen3), `GET /api/jobs/{id}/analysis`. Analysis never

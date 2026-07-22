@@ -3,8 +3,10 @@ so Alembic autogeneration and ``create_all`` see them."""
 
 from app.database.session import Base
 from app.models.application import Application
+from app.models.candidate_profile import CandidateProfile
 from app.models.job import Job
 from app.models.job_analysis import JobAnalysis
+from app.models.job_match import JobMatch
 from app.models.resume import Resume, ResumeVersion
 
 __all__ = [
@@ -12,6 +14,8 @@ __all__ = [
     "Job",
     "Application",
     "JobAnalysis",
+    "JobMatch",
+    "CandidateProfile",
     "Resume",
     "ResumeVersion",
 ]
