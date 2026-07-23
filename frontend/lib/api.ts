@@ -351,3 +351,43 @@ export const updateApplication = (
   id: number,
   patch: Partial<Omit<ApplicationDetail, "id" | "events">>,
 ) => sendJson<ApplicationDetail>(`/api/applications/${id}`, "PATCH", patch);
+
+// --- Resume tailoring (Phase 8) ---
+
+export interface TailoredDocument {
+  id: number;
+  application_id: number;
+  source_resume_version_id: number | null;
+  status: string; // DRAFT | APPROVED
+  approved_at: string | null;
+  before_resume: string;
+  tailored_resume: string;
+  cover_letter: string;
+  draft_answers: { question: string; answer: string }[];
+  changes_summary: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+export const generateTailored = (
+  appId: number,
+  req: { resume_version_id?: number; questions?: string[] } = {},
+) => sendJson<TailoredDocument>(`/api/applications/${appId}/tailor`, "POST", req);
+
+export async function getTailored(appId: number): Promise<TailoredDocument | null> {
+  const res = await fetch(apiUrl(`/api/applications/${appId}/tailor`), {
+    cache: "no-store",
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`Request failed (${res.status})`);
+  return (await res.json()) as TailoredDocument;
+}
+
+export const approveTailored = (appId: number) =>
+  sendJson<TailoredDocument>(`/api/applications/${appId}/tailor/approve`, "POST");
+
+export const tailorDocumentUrl = (
+  appId: number,
+  kind: "resume" | "cover_letter",
+  fmt: "txt" | "md" | "docx",
+) => apiUrl(`/api/applications/${appId}/tailor/document?kind=${kind}&fmt=${fmt}`);

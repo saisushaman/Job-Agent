@@ -8,6 +8,7 @@ from app.models.job import Job
 from app.models.job_analysis import JobAnalysis
 from app.models.job_match import JobMatch
 from app.models.resume import Resume, ResumeVersion
+from app.models.tailored_document import TailoredDocument
 
 __all__ = [
     "Base",
@@ -19,4 +20,5 @@ __all__ = [
     "CandidateProfile",
     "Resume",
     "ResumeVersion",
+    "TailoredDocument",
 ]

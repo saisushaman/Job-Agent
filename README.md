@@ -7,16 +7,19 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 7 (Application tracker) complete.** On top of Phases 1–6, the
-> app tracks applications through the full lifecycle (DISCOVERED → … → OFFER / REJECTED)
-> with records (dates, resume version, cover letter, recruiter, interview / rejection /
-> offer), a **Kanban board with drag-and-drop**, an editable application detail page, and
-> an audit history. Jobs analyzed `NOT_ELIGIBLE` (citizenship / no sponsorship) can't be
-> moved into the apply columns. Resume tailoring, email, Excel, and automation arrive in
-> later phases.
+> **Current status: Phase 8 (Resume tailoring) complete.** On top of Phases 1–7, the app
+> can prepare an application with local Qwen3: it picks the best-matching resume version
+> (embeddings), tailors the resume and writes a cover letter + draft answers, shows a
+> **before/after diff**, and requires **explicit approval** before saving — under a strict
+> anti-fabrication rule (only reorders/re-emphasizes real resume/profile facts, never
+> invents experience, skills, employers, education, or achievements). Approved documents
+> download as txt/md/docx. Tailoring is disabled for `NOT_ELIGIBLE` jobs. Email, Excel,
+> and automation arrive in later phases.
 
-Application endpoints: `GET/POST /api/applications`, `GET/PATCH /api/applications/{id}`,
-`GET /api/applications/{id}/events`. UI: `/applications` (board), `/applications/{id}`.
+Tailoring endpoints (under an application): `POST /api/applications/{id}/tailor`,
+`GET /api/applications/{id}/tailor`, `POST /api/applications/{id}/tailor/approve`,
+`GET /api/applications/{id}/tailor/document?kind=resume|cover_letter&fmt=txt|md|docx`.
+UI: `/applications/{id}/tailor`.
 
 Dashboard/search endpoints: `GET /api/dashboard/stats`, `GET /api/jobs?...filters`,
 `GET /api/jobs/{id}/detail`. UI pages: `/` (dashboard), `/jobs`, `/jobs/{id}`,

@@ -61,7 +61,11 @@
 - [x] Add-to-tracker from job detail; pipeline stats reflect status
 
 ## Phase 8 — Resume tailoring & cover letters
-- [ ] Tailor resume, cover letter, draft answers, before/after, approval
+- [x] Pick best resume version (embeddings) + Qwen3 tailoring (anti-fabrication)
+- [x] Tailored resume, cover letter, draft answers, changes summary
+- [x] Before/after diff + explicit approval before save (DRAFT→APPROVED)
+- [x] Document generation (txt/md/docx); blocked for NOT_ELIGIBLE jobs
+- [x] Approve readies the application (→APPLICATION_READY)
 
 ## Phase 9 — Email (Gmail OAuth)
 - [ ] OAuth, token storage, sync, classification, match, dashboard

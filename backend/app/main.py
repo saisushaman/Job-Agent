@@ -13,6 +13,7 @@ from app.api.routes import (
     jobs,
     profile,
     resumes,
+    tailoring,
 )
 from app.config import settings
 
@@ -33,6 +34,7 @@ app.include_router(jobs.router, prefix="/api")
 app.include_router(profile.router, prefix="/api")
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(applications.router, prefix="/api")
+app.include_router(tailoring.router, prefix="/api")
 
 
 @app.get("/", tags=["root"])

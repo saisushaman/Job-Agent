@@ -80,6 +80,12 @@ export default function ApplicationDetailPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
+              <Link
+                href={`/applications/${id}/tailor`}
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800"
+              >
+                Tailor
+              </Link>
               <select
                 value={app.status}
                 onChange={(e) => save({ status: e.target.value })}
