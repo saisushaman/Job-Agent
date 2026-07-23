@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 import Nav from "@/components/Nav";
@@ -10,7 +10,13 @@ import {
   RecommendationBadge,
   ScoreBadge,
 } from "@/components/badges";
-import { analyzeJob, getJobDetail, matchJob, type JobDetail } from "@/lib/api";
+import {
+  analyzeJob,
+  createApplication,
+  getJobDetail,
+  matchJob,
+  type JobDetail,
+} from "@/lib/api";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -34,10 +40,23 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 
 export default function JobDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const id = Number(params.id);
   const [detail, setDetail] = useState<JobDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+
+  async function addToTracker() {
+    setError(null);
+    setBusy("track");
+    try {
+      const app = await createApplication(id);
+      router.push(`/applications/${app.id}`);
+    } catch (e) {
+      setError(String((e as Error).message ?? e));
+      setBusy(null);
+    }
+  }
 
   const load = useCallback(() => {
     getJobDetail(id)
@@ -112,9 +131,16 @@ export default function JobDetailPage() {
                 onClick={() => run("match")}
                 disabled={busy !== null || !a}
                 title={a ? "" : "Analyze first"}
-                className="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50 dark:bg-white dark:text-slate-900"
+                className="rounded-md border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-100 disabled:opacity-50 dark:border-slate-600 dark:hover:bg-slate-800"
               >
                 {busy === "match" ? "Matching…" : "Match"}
+              </button>
+              <button
+                onClick={addToTracker}
+                disabled={busy !== null}
+                className="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white disabled:opacity-50 dark:bg-white dark:text-slate-900"
+              >
+                {busy === "track" ? "Adding…" : "Add to tracker"}
               </button>
             </div>
           </div>

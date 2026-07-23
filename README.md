@@ -7,13 +7,16 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 6 (Dashboard) complete.** On top of Phases 1–5, the app has a
-> real UI: a dashboard with pipeline stats, region / eligibility / sponsorship /
-> recommendation breakdowns and top matching jobs; a Jobs page to import jobs and
-> search/filter them (region, eligibility, recommendation, match score, remote) with
-> per-row Analyze/Match actions; a job detail page showing the full analysis + match; and
-> a candidate profile editor. Application tracker, tailoring, email, and automation arrive
-> in later phases.
+> **Current status: Phase 7 (Application tracker) complete.** On top of Phases 1–6, the
+> app tracks applications through the full lifecycle (DISCOVERED → … → OFFER / REJECTED)
+> with records (dates, resume version, cover letter, recruiter, interview / rejection /
+> offer), a **Kanban board with drag-and-drop**, an editable application detail page, and
+> an audit history. Jobs analyzed `NOT_ELIGIBLE` (citizenship / no sponsorship) can't be
+> moved into the apply columns. Resume tailoring, email, Excel, and automation arrive in
+> later phases.
+
+Application endpoints: `GET/POST /api/applications`, `GET/PATCH /api/applications/{id}`,
+`GET /api/applications/{id}/events`. UI: `/applications` (board), `/applications/{id}`.
 
 Dashboard/search endpoints: `GET /api/dashboard/stats`, `GET /api/jobs?...filters`,
 `GET /api/jobs/{id}/detail`. UI pages: `/` (dashboard), `/jobs`, `/jobs/{id}`,

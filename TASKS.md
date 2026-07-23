@@ -54,7 +54,11 @@
 - [x] Candidate profile editor UI; shared nav across pages
 
 ## Phase 7 — Application tracker
-- [ ] Status lifecycle, records, Kanban + drag/drop, detail, audit
+- [x] Full status lifecycle + application records (dates, resume version, cover letter,
+      recruiter, interview/rejection/offer)
+- [x] Kanban board with drag-and-drop (native); NOT_ELIGIBLE guard on apply columns
+- [x] Application detail page (editable) + history/audit events
+- [x] Add-to-tracker from job detail; pipeline stats reflect status
 
 ## Phase 8 — Resume tailoring & cover letters
 - [ ] Tailor resume, cover letter, draft answers, before/after, approval

@@ -66,7 +66,7 @@ async function getJson<T>(path: string): Promise<T> {
 
 async function sendJson<T>(
   path: string,
-  method: "POST" | "PUT",
+  method: "POST" | "PUT" | "PATCH",
   body?: unknown,
 ): Promise<T> {
   const res = await fetch(apiUrl(path), {
@@ -278,3 +278,76 @@ export const matchJob = (id: number) =>
 export const getProfile = () => getJson<Profile>("/api/profile");
 export const updateProfile = (patch: Partial<Profile>) =>
   sendJson<Profile>("/api/profile", "PUT", patch);
+
+// --- Application tracker (Phase 7) ---
+
+export const APPLICATION_STATUSES = [
+  "DISCOVERED",
+  "REVIEW",
+  "APPROVED",
+  "APPLICATION_READY",
+  "APPLYING",
+  "APPLIED",
+  "RESPONSE_RECEIVED",
+  "INTERVIEW",
+  "OFFER",
+  "REJECTED",
+  "ON_HOLD",
+  "NOT_ELIGIBLE",
+] as const;
+
+export interface ApplicationCard {
+  id: number;
+  job_id: number;
+  job_title: string;
+  job_company: string;
+  status: string;
+  match_score: number | null;
+  recommendation: string | null;
+  eligibility: string | null;
+  applied_at: string | null;
+  updated_at: string;
+}
+
+export interface ApplicationEvent {
+  id: number;
+  event_type: string;
+  from_status: string | null;
+  to_status: string | null;
+  message: string | null;
+  created_at: string;
+}
+
+export interface ApplicationDetail {
+  id: number;
+  job_id: number;
+  job_title: string;
+  job_company: string;
+  status: string;
+  notes: string | null;
+  external_application_id: string | null;
+  applied_at: string | null;
+  resume_version_id: number | null;
+  cover_letter: string | null;
+  recruiter_name: string | null;
+  recruiter_email: string | null;
+  recruiter_notes: string | null;
+  interview_at: string | null;
+  rejection_reason: string | null;
+  offer_details: string | null;
+  offer_salary: number | null;
+  created_at: string;
+  updated_at: string;
+  events: ApplicationEvent[];
+}
+
+export const listApplications = () =>
+  getJson<ApplicationCard[]>("/api/applications");
+export const getApplication = (id: number) =>
+  getJson<ApplicationDetail>(`/api/applications/${id}`);
+export const createApplication = (jobId: number) =>
+  sendJson<ApplicationDetail>("/api/applications", "POST", { job_id: jobId });
+export const updateApplication = (
+  id: number,
+  patch: Partial<Omit<ApplicationDetail, "id" | "events">>,
+) => sendJson<ApplicationDetail>(`/api/applications/${id}`, "PATCH", patch);

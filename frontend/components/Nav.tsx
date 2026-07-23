@@ -5,6 +5,7 @@ import HealthStatus from "@/components/HealthStatus";
 const LINKS = [
   { href: "/", label: "Dashboard" },
   { href: "/jobs", label: "Jobs" },
+  { href: "/applications", label: "Applications" },
   { href: "/resumes", label: "Resumes" },
   { href: "/profile", label: "Profile" },
 ];

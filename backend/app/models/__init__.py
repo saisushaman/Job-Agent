@@ -2,7 +2,7 @@
 so Alembic autogeneration and ``create_all`` see them."""
 
 from app.database.session import Base
-from app.models.application import Application
+from app.models.application import Application, ApplicationEvent
 from app.models.candidate_profile import CandidateProfile
 from app.models.job import Job
 from app.models.job_analysis import JobAnalysis
@@ -13,6 +13,7 @@ __all__ = [
     "Base",
     "Job",
     "Application",
+    "ApplicationEvent",
     "JobAnalysis",
     "JobMatch",
     "CandidateProfile",
