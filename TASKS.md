@@ -68,7 +68,11 @@
 - [x] Approve readies the application (→APPLICATION_READY)
 
 ## Phase 9 — Email (Gmail OAuth)
-- [ ] OAuth, token storage, sync, classification, match, dashboard
+- [x] Pluggable provider: mock (default) + guarded Gmail read-only OAuth (no passwords)
+- [x] Sync + store (dedupe by external id); never deletes email
+- [x] Local Qwen3 classification (8 categories) + confidence + NEEDS_REVIEW
+- [x] Match email → application (by company); optional status update + audit event
+- [x] Email dashboard UI (sync/classify, filters, manual override)
 
 ## Phase 10 — Excel export
 - [ ] openpyxl workbook + sheets (no passwords)

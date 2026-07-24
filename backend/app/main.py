@@ -9,6 +9,7 @@ from app.api.routes import (
     ai,
     applications,
     dashboard,
+    emails,
     health,
     jobs,
     profile,
@@ -35,6 +36,7 @@ app.include_router(profile.router, prefix="/api")
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(applications.router, prefix="/api")
 app.include_router(tailoring.router, prefix="/api")
+app.include_router(emails.router, prefix="/api")
 
 
 @app.get("/", tags=["root"])

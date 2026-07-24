@@ -23,6 +23,11 @@ postgres = [
     "psycopg[binary]>=3.2",
     "pgvector>=0.3",
 ]
+# Install with `uv sync --extra gmail` to enable real Gmail (read-only OAuth).
+gmail = [
+    "google-api-python-client>=2.0",
+    "google-auth-oauthlib>=1.2",
+]
 
 [dependency-groups]
 dev = [

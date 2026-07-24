@@ -40,6 +40,13 @@ class Settings(BaseSettings):
     # Where uploaded resume files are stored (relative to the backend working dir).
     upload_dir: str = "uploads"
 
+    # Email (Phase 9). "mock" uses local fixtures; "gmail" requires OAuth creds.
+    email_provider: str = "mock"
+    gmail_credentials_file: str = "tokens/gmail_credentials.json"
+    gmail_token_file: str = "tokens/gmail_token.json"
+    # Below this confidence, an email classification is flagged NEEDS_REVIEW.
+    email_classify_confidence_threshold: float = 0.6
+
     @property
     def cors_origins(self) -> list[str]:
         return [o.strip() for o in self.backend_cors_origins.split(",") if o.strip()]

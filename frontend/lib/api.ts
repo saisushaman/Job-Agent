@@ -391,3 +391,63 @@ export const tailorDocumentUrl = (
   kind: "resume" | "cover_letter",
   fmt: "txt" | "md" | "docx",
 ) => apiUrl(`/api/applications/${appId}/tailor/document?kind=${kind}&fmt=${fmt}`);
+
+// --- Email (Phase 9) ---
+
+export const EMAIL_CATEGORIES = [
+  "APPLICATION_CONFIRMATION",
+  "RECRUITER_CONTACT",
+  "INTERVIEW",
+  "ASSESSMENT",
+  "REJECTION",
+  "OFFER",
+  "FOLLOW_UP",
+  "OTHER",
+] as const;
+
+export interface EmailProviderStatus {
+  provider: string;
+  configured: boolean;
+  detail: string;
+}
+
+export interface EmailOut {
+  id: number;
+  external_id: string;
+  sender: string;
+  sender_email: string;
+  subject: string;
+  snippet: string;
+  received_at: string | null;
+  classified: boolean;
+  category: string | null;
+  confidence: number | null;
+  needs_review: boolean;
+  application_id: number | null;
+  application_job_title: string | null;
+}
+
+export const emailStatus = () =>
+  getJson<EmailProviderStatus>("/api/emails/status");
+export const listEmails = (filters: Record<string, string> = {}) => {
+  const qs = new URLSearchParams(
+    Object.entries(filters).filter(([, v]) => v !== "" && v != null),
+  ).toString();
+  return getJson<EmailOut[]>(`/api/emails${qs ? `?${qs}` : ""}`);
+};
+export const syncEmails = () =>
+  sendJson<{ provider: string; fetched: number; new: number }>(
+    "/api/emails/sync",
+    "POST",
+  );
+export const classifyEmails = () =>
+  sendJson<{
+    classified: number;
+    needs_review: number;
+    matched: number;
+    status_updates: number;
+  }>("/api/emails/classify", "POST");
+export const patchEmail = (
+  id: number,
+  patch: { category?: string; application_id?: number | null; needs_review?: boolean },
+) => sendJson<EmailOut>(`/api/emails/${id}`, "PATCH", patch);

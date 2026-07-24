@@ -7,14 +7,18 @@ API calls anywhere in the system.
 See [`PROJECT_SPEC.md`](PROJECT_SPEC.md) for the full vision and phase plan, and
 [`TASKS.md`](TASKS.md) for progress.
 
-> **Current status: Phase 8 (Resume tailoring) complete.** On top of Phases 1–7, the app
-> can prepare an application with local Qwen3: it picks the best-matching resume version
-> (embeddings), tailors the resume and writes a cover letter + draft answers, shows a
-> **before/after diff**, and requires **explicit approval** before saving — under a strict
-> anti-fabrication rule (only reorders/re-emphasizes real resume/profile facts, never
-> invents experience, skills, employers, education, or achievements). Approved documents
-> download as txt/md/docx. Tailoring is disabled for `NOT_ELIGIBLE` jobs. Email, Excel,
-> and automation arrive in later phases.
+> **Current status: Phase 9 (Email) complete.** On top of Phases 1–8, the app can sync
+> emails and classify them locally with Qwen3 into 8 categories (application confirmation,
+> recruiter, interview, assessment, rejection, offer, follow-up, other) with a confidence
+> score and a `NEEDS_REVIEW` flag, match them to applications by company, and optionally
+> advance an application's status (with an audit event). It uses a **mock email provider
+> by default** and only touches a real inbox once you configure **Gmail read-only OAuth**
+> (no passwords, never deletes email). Excel export and automation arrive in later phases.
+
+Email endpoints: `GET /api/emails/status`, `POST /api/emails/sync`,
+`POST /api/emails/classify`, `GET /api/emails`, `GET/PATCH /api/emails/{id}`. UI:
+`/emails`. Set `EMAIL_PROVIDER=gmail` (+ `uv sync --extra gmail` and OAuth token) to use a
+real inbox; otherwise it stays on local fixtures.
 
 Tailoring endpoints (under an application): `POST /api/applications/{id}/tailor`,
 `GET /api/applications/{id}/tailor`, `POST /api/applications/{id}/tailor/approve`,

@@ -4,6 +4,7 @@ so Alembic autogeneration and ``create_all`` see them."""
 from app.database.session import Base
 from app.models.application import Application, ApplicationEvent
 from app.models.candidate_profile import CandidateProfile
+from app.models.email_message import EmailMessage
 from app.models.job import Job
 from app.models.job_analysis import JobAnalysis
 from app.models.job_match import JobMatch
@@ -21,4 +22,5 @@ __all__ = [
     "Resume",
     "ResumeVersion",
     "TailoredDocument",
+    "EmailMessage",
 ]
